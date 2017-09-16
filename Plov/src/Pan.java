@@ -6,7 +6,6 @@ public class Pan {
 	private Veg[] veg;
 	private Spice spice;
 	
-	private boolean plov=false;
 	
 	public void init(int countMeat,int countVeg)
 	{
@@ -25,7 +24,6 @@ public class Pan {
 	public void addSpice (Spice s)
 	{
 		spice = s;
-		spice.setInPan(true);
 	}
 
 	public void addMeat(Meat[] m)
@@ -45,13 +43,23 @@ public class Pan {
 				veg[i]=v[i];
 				return;
 			}
-			veg[i].setInPan(true);
 		}
 	}
 	
 	public void addRice(Rice r) {
 		rice=r;
-		rice.setInPan(true);
+	}
+	
+	public boolean meatIsReadyToGo() {
+		for(int i=0;i<meat.length;i++) {
+			if(meat[i]==null) return false;
+		}
+		for(int i=0;i<veg.length;i++) {
+			if(veg[i]==null) return false;
+		}
+		if(spice==null) return false;
+		
+		return true;
 	}
 	
 	
@@ -61,14 +69,29 @@ public class Pan {
 		for(int i=0;i<meat.length;i++) {
 			meat[i].heat();
 		}
+		for(int i=0;i<veg.length;i++) {
+			veg[i].heat();
+		}
+		
 	}
 	
-	public void setPlov(boolean s) {
-		plov=s;
+	public boolean plovIsReadyToGo() {
+		for(int i=0;i<meat.length;i++) {
+			if(meat[i]==null) return false;
+		}
+		for(int i=0;i<veg.length;i++) {
+			if(veg[i]==null) return false;
+		}
+		if(spice==null) return false;
+		
+		if(rice==null) return false;
+		
+		return true;
 	}
 	
-	public boolean getPlov() {
-		return plov;
+	public void heatPlov() {
+		rice.heat();
 	}
+	
 	
 }

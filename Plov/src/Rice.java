@@ -5,14 +5,6 @@ public class Rice {
 	private boolean ready;
 	
 	
-	private boolean inPan;
-	public boolean getInPan() {
-		return inPan;
-	}
-	
-	public void setInPan(boolean s) {
-		inPan=s;
-	}
 
 	public boolean getDirty() {
 		return isDirty;

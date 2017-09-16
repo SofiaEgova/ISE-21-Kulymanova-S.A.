@@ -4,15 +4,8 @@ public class Veg {
 
 	private boolean isDirty = true;
 	private boolean needCut=true;
-	private int ready = 0;
-	private boolean inPan;
-	public boolean getInPan() {
-		return inPan;
-	}
+	private boolean ready=false;
 	
-	public void setInPan(boolean s) {
-		inPan=s;
-	}
 	
 	public void setDirty(boolean s) {
 		isDirty = s;
@@ -31,13 +24,13 @@ public class Veg {
 	}
 	
 	
-	public int getReady() {
+	public boolean getReady() {
 		return ready;
 	}
 
 
 	public void heat()
 	{
-		while (ready < 10) ready++;
+		ready = true;
 	}
 }

@@ -243,9 +243,6 @@ public class Main {
 						}
 					}
 					pan.addMeat(meat);
-					for (int i = 0; i < meat.length; i++) {
-						meat[i].setInPan(true);
-					}
 
 					System.out.println("Мясо в сковородке");
 				} else {
@@ -261,14 +258,9 @@ public class Main {
 		btnNewButton_6.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
-				if (rice.getReady()) {
 					pan.addRice(rice);
-					rice.setInPan(true);
-					pan.setPlov(true);
 					System.out.println("Рис вместе с мясом, финишная прямая");
-				} else {
-					System.out.println("Рис к этому еще не готов");
-				}
+				
 
 			}
 		});
@@ -292,9 +284,6 @@ public class Main {
 					}
 
 					pan.addVeg(veg);
-					for (int i = 0; i < veg.length; i++) {
-						veg[i].setInPan(true);
-					}
 					System.out.println("Овощи в сковородке");
 				}
 
@@ -311,8 +300,8 @@ public class Main {
 		btnNewButton_8.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
+				pan.addSpice(spice);
 				System.out.println("Добавили специй");
-				spice.setInPan(true);
 
 			}
 		});
@@ -324,26 +313,14 @@ public class Main {
 			public void actionPerformed(ActionEvent e) {
 				if (stove.getState()) {
 					if (cook) {
-						for (int i = 0; i < meat.length; i++) {
-							if (!meat[i].getInPan()) {
-								System.out.println("Мяса нет!");
-								return;
-							}
-						}
-						for (int i = 0; i < veg.length; i++) {
-							if (!veg[i].getInPan()) {
-								System.out.println("Овощей нет!");
-								return;
-							}
 
+						if (pan.meatIsReadyToGo()) {
+							stove.cookMeat(pan);
+							System.out.println("Мясо готово, кидай рис");
 						}
-						if (!spice.getInPan()) {
-							System.out.println("Специй нет :(");
-							return;
+						else {
+							System.out.println("Каких-то продуктов не хватает, не торопись");
 						}
-						pan.heatMeat();
-						System.out.println("Мясо готово, кидай рис");
-
 					}
 
 					else {
@@ -382,26 +359,6 @@ public class Main {
 		lblNewLabel_4.setBounds(26, 253, 46, 14);
 		frame.getContentPane().add(lblNewLabel_4);
 
-		JButton btnNewButton_11 = new JButton("Rice cook");
-		btnNewButton_11.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if (stove.getState()) {
-					if (rice.getDirty()) {
-						System.out.println("Помой рис, он грязный");
-						return;
-					}
-					pan.addRice(rice);
-					rice.heat();
-					System.out.println("А рис готов, кидай к мясу ;)");
-				} else {
-					System.out.println("Включи плиту!");
-				}
-
-			}
-		});
-		btnNewButton_11.setBounds(26, 278, 136, 23);
-		frame.getContentPane().add(btnNewButton_11);
-
 		JRadioButton rdbtnNewRadioButton_2 = new JRadioButton("ON");
 		rdbtnNewRadioButton_2.setBounds(319, 133, 109, 23);
 		frame.getContentPane().add(rdbtnNewRadioButton_2);
@@ -419,17 +376,15 @@ public class Main {
 			public void actionPerformed(ActionEvent e) {
 				if (stove.getState()) {
 					if (cook) {
-						
-						if(!pan.getPlov()) {
-							System.out.println("а где плов то?!");
-							return;
+						if(pan.plovIsReadyToGo()) {
+							stove.cookPlov(pan);
+							finish = true;
+							System.out.println("Все готово, можно кушать ");
 						}
-						
-						finish = true;
-						System.out.println("Все готово, можно кушать ");
-						
-						
-						
+						else {
+							System.out.println("что-то там не так");
+						}
+
 					} else {
 						System.out.println("Нет продуктов");
 					}
@@ -440,27 +395,26 @@ public class Main {
 		});
 		btnNewButton_10.setBounds(202, 249, 89, 23);
 		frame.getContentPane().add(btnNewButton_10);
-		
+
 		btnNewButton_12 = new JButton("Eat!!! :D");
 		btnNewButton_12.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if(finish) {
-					if(waterTap.getState()) {
+				if (finish) {
+					if (waterTap.getState()) {
 						System.out.println("Закрой кран");
 						return;
 					}
-					if(stove.getState()) {
+					if (stove.getState()) {
 						System.out.println("Выключи плиту");
 						return;
 					}
 					JOptionPane.showMessageDialog(null, "ПРИЯТНОГО АППЕТИТА!!!");
 					System.exit(0);
-					
-				}
-				else {
+
+				} else {
 					System.out.println("Еще нечего кушать");
 				}
-				
+
 			}
 		});
 		btnNewButton_12.setBounds(205, 287, 203, 81);

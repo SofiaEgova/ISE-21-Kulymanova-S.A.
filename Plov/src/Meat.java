@@ -6,14 +6,7 @@ public class Meat {
 	
 	
 	private boolean needCut=true;
-	private boolean inPan;
-	public boolean getInPan() {
-		return inPan;
-	}
 	
-	public void setInPan(boolean s) {
-		inPan=s;
-	}
 	
 	
 	public void setNeedCut(boolean s) {
