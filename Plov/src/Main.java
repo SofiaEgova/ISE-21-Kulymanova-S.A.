@@ -315,7 +315,7 @@ public class Main {
 					if (cook) {
 
 						if (pan.meatIsReadyToGo()) {
-							stove.cookMeat(pan);
+							stove.cook(pan);
 							System.out.println("Мясо готово, кидай рис");
 						}
 						else {
@@ -377,7 +377,7 @@ public class Main {
 				if (stove.getState()) {
 					if (cook) {
 						if(pan.plovIsReadyToGo()) {
-							stove.cookPlov(pan);
+							stove.cook(pan);
 							finish = true;
 							System.out.println("Все готово, можно кушать ");
 						}

@@ -10,11 +10,8 @@ private boolean isOn;
 		isOn =s;
 	}
 	
-	public void cookMeat(Pan pan) {
-		pan.heatMeat();
+	public void cook(Pan pan) {
+		pan.heat();
 	}
 	
-	public void cookPlov(Pan pan) {
-		pan.heatPlov();
-	}
 }
