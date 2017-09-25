@@ -25,9 +25,10 @@ namespace Plov
         }
         
 
-        public void cook(Pan pan)
+        public Pan cook(Pan pan)
         {
             pan.heat();
+            return pan;
         }
     }
 }

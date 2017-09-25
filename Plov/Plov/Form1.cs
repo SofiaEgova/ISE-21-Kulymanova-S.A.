@@ -271,7 +271,7 @@ namespace Plov
 
                     if (pan.meatIsReadyToGo())
                     {
-                        stove.cook(pan);
+                        pan = stove.cook(pan);
                         MessageBox.Show("Мясо готово, кидай рис", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
                       
                     }
@@ -303,7 +303,7 @@ namespace Plov
                 {
                     if (pan.plovIsReadyToGo())
                     {
-                        stove.cook(pan);
+                        pan = stove.cook(pan);
                         isFinish = true;
                         MessageBox.Show("Все готово, можно кушать", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         
