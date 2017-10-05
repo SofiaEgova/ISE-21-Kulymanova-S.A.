@@ -14,7 +14,7 @@ namespace Lab2
     {
 
 		Color color;
-		Color color1;
+		Color colorFight;
 		int maxSpeed;
 		int weight;
 		int maxHeight;
@@ -22,20 +22,20 @@ namespace Lab2
 
 
 
-		private Transport interTran;
+		private ITransport interTran;
 
         public a()
         {
             InitializeComponent();
 			color = Color.Red;
-			color1 = Color.Black;
+            colorFight = Color.Black;
 			maxSpeed = 2000;
             fuel = 0;
 			weight = 30000;
 			maxHeight = 5;
 
 			selectColor.BackColor = color;
-			selectColor1.BackColor = color1;
+			selectColor1.BackColor = colorFight;
 
         }
 
@@ -87,7 +87,7 @@ namespace Lab2
 		{
 			if (checkFields())
 			{
-				interTran = new Fighter(maxSpeed, fuel, maxHeight, weight, color, checkBomb.Checked, checkGun.Checked, color1);
+				interTran = new Fighter(maxSpeed, fuel, maxHeight, weight, color, checkBomb.Checked, checkGun.Checked, colorFight);
 				Bitmap bmp = new Bitmap(drawBox.Width, drawBox.Height);
 				Graphics gr = Graphics.FromImage(bmp);
 				interTran.draw(gr);
@@ -99,8 +99,8 @@ namespace Lab2
 		{
 			if (colorDialog2.ShowDialog() == System.Windows.Forms.DialogResult.OK)
 			{
-				color1 = colorDialog2.Color;
-				selectColor1.BackColor = color1;
+                colorFight = colorDialog2.Color;
+				selectColor1.BackColor = colorFight;
 			}
 		}
 	}

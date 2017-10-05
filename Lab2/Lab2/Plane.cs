@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Lab2
 {
-    public abstract class Plane:Transport
+    public abstract class Plane:ITransport
     {
 
 
