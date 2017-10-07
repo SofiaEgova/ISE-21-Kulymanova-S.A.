@@ -1,0 +1,9 @@
+c:\users\sofia\documents\visual studio 2015\Projects\Plov\Plov\bin\Debug\Plov.exe.config
+c:\users\sofia\documents\visual studio 2015\Projects\Plov\Plov\bin\Debug\Plov.exe
+c:\users\sofia\documents\visual studio 2015\Projects\Plov\Plov\bin\Debug\Plov.pdb
+c:\users\sofia\documents\visual studio 2015\Projects\Plov\Plov\obj\Debug\Plov.csprojResolveAssemblyReference.cache
+c:\users\sofia\documents\visual studio 2015\Projects\Plov\Plov\obj\Debug\Plov.Form1.resources
+c:\users\sofia\documents\visual studio 2015\Projects\Plov\Plov\obj\Debug\Plov.Properties.Resources.resources
+c:\users\sofia\documents\visual studio 2015\Projects\Plov\Plov\obj\Debug\Plov.csproj.GenerateResource.Cache
+c:\users\sofia\documents\visual studio 2015\Projects\Plov\Plov\obj\Debug\Plov.exe
+c:\users\sofia\documents\visual studio 2015\Projects\Plov\Plov\obj\Debug\Plov.pdb
