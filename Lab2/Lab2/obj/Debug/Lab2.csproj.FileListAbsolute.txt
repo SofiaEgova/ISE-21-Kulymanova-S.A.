@@ -1,0 +1,18 @@
+c:\users\sofia\documents\visual studio 2015\Projects\Lab2\Lab2\bin\Debug\Lab2.exe.config
+C:\Users\Sofia\documents\visual studio 2015\Projects\Lab2\Lab2\bin\Debug\Lab2.exe
+C:\Users\Sofia\documents\visual studio 2015\Projects\Lab2\Lab2\bin\Debug\Lab2.pdb
+C:\Users\Sofia\documents\visual studio 2015\Projects\Lab2\Lab2\obj\Debug\Lab2.csprojResolveAssemblyReference.cache
+C:\Users\Sofia\documents\visual studio 2015\Projects\Lab2\Lab2\obj\Debug\Lab2.Form1.resources
+C:\Users\Sofia\documents\visual studio 2015\Projects\Lab2\Lab2\obj\Debug\Lab2.Properties.Resources.resources
+C:\Users\Sofia\documents\visual studio 2015\Projects\Lab2\Lab2\obj\Debug\Lab2.csproj.GenerateResource.Cache
+C:\Users\Sofia\documents\visual studio 2015\Projects\Lab2\Lab2\obj\Debug\Lab2.exe
+C:\Users\Sofia\documents\visual studio 2015\Projects\Lab2\Lab2\obj\Debug\Lab2.pdb
+E:\ТП\Lab2\Lab2\bin\Debug\Lab2.exe.config
+E:\ТП\Lab2\Lab2\obj\Debug\Lab2.exe
+E:\ТП\Lab2\Lab2\obj\Debug\Lab2.pdb
+E:\ТП\Lab2\Lab2\bin\Debug\Lab2.exe
+E:\ТП\Lab2\Lab2\bin\Debug\Lab2.pdb
+E:\ТП\Lab2\Lab2\obj\Debug\Lab2.csprojResolveAssemblyReference.cache
+E:\ТП\Lab2\Lab2\obj\Debug\Lab2.a.resources
+E:\ТП\Lab2\Lab2\obj\Debug\Lab2.Properties.Resources.resources
+E:\ТП\Lab2\Lab2\obj\Debug\Lab2.csproj.GenerateResource.Cache
