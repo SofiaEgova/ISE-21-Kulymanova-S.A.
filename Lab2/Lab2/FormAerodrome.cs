@@ -15,19 +15,29 @@ namespace Lab2
 		Aerodrome aerodrome;
 
 
+
 		public FormAerodrome()
 		{
 			InitializeComponent();
-			aerodrome = new Aerodrome();
+			aerodrome = new Aerodrome(5);
+			for (int i = 1; i < 6; i++)
+			{
+				listBoxLevels.Items.Add("Уровень " + i);
+			}
+			listBoxLevels.SelectedIndex = aerodrome.getCurrentLevel;
+			
 			draw();
 		}
 
 		public void draw()
 		{
-			Bitmap bmp = new Bitmap(pictureBoxAerodrome.Width, pictureBoxAerodrome.Height);
-			Graphics gr = Graphics.FromImage(bmp);
-			aerodrome.draw(gr, pictureBoxAerodrome.Width, pictureBoxAerodrome.Height);
-			pictureBoxAerodrome.Image = bmp;
+			if (listBoxLevels.SelectedIndex > -1)
+			{
+				Bitmap bmp = new Bitmap(pictureBoxAerodrome.Width, pictureBoxAerodrome.Height);
+				Graphics gr = Graphics.FromImage(bmp);
+				aerodrome.draw(gr, pictureBoxAerodrome.Width, pictureBoxAerodrome.Height);
+				pictureBoxAerodrome.Image = bmp;
+			}
 		}
 
 
@@ -64,17 +74,37 @@ namespace Lab2
 		
 		private void butTake_Click(object sender, EventArgs e)
 		{
-			if (maskedTextBox1.Text != "")
+			if (listBoxLevels.SelectedIndex > -1)
 			{
-				var plane = aerodrome.getPlaneInAerodrome(Convert.ToInt32(maskedTextBox1.Text));
-				Bitmap bmp = new Bitmap(pictureBoxTakePlane.Width, pictureBoxTakePlane.Height);
-				Graphics gr = Graphics.FromImage(bmp);
-				plane.setPosition(5, 5);
-				plane.draw(gr);
-				pictureBoxTakePlane.Image = bmp;
-				draw();
+				string level = listBoxLevels.Items[listBoxLevels.SelectedIndex].ToString();
+
+				if (maskedTextBox1.Text != "")
+				{
+					var plane = aerodrome.getPlaneInAerodrome(Convert.ToInt32(maskedTextBox1.Text));
+					Bitmap bmp = new Bitmap(pictureBoxTakePlane.Width, pictureBoxTakePlane.Height);
+					Graphics gr = Graphics.FromImage(bmp);
+					plane.setPosition(5, 5);
+					plane.draw(gr);
+					pictureBoxTakePlane.Image = bmp;
+					draw();
+				}
 			}
 		}
 
+		private void btnLevelDown_Click(object sender, EventArgs e)
+		{
+			aerodrome.levelDown();
+			listBoxLevels.SelectedIndex = aerodrome.getCurrentLevel;
+			draw();
+
+		}
+
+		private void btnLevelUp_Click(object sender, EventArgs e)
+		{
+			aerodrome.levelUp();
+			listBoxLevels.SelectedIndex = aerodrome.getCurrentLevel;
+			draw();
+
+		}
 	}
 }
