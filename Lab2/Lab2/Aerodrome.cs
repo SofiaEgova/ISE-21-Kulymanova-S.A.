@@ -9,39 +9,67 @@ namespace Lab2
 {
 	class Aerodrome
 	{
-		ClassArray<ITransport> aerodrome;
+		List<ClassArray<ITransport>> aerodromeStages;
+
 
 		int countPlaces = 20;
 		int placeWidth = 210;
 		int placeHeight = 80;
 
-		public Aerodrome()
+		int currentLevel;
+
+		public Aerodrome(int countStages)
 		{
-			aerodrome = new ClassArray<ITransport>(countPlaces, null);
+			aerodromeStages = new List<ClassArray<ITransport>>(countStages);
+			for (int i = 0; i < countStages; i++)
+			{
+				aerodromeStages.Add(new ClassArray<ITransport>(countPlaces, null));
+			}
+		}
+
+		public int getCurrentLevel
+		{
+			get
+			{
+				return currentLevel;
+			}
+		}
+
+
+		public void levelUp()
+		{
+			if (currentLevel + 1 < aerodromeStages.Count) currentLevel++;
+		}
+
+		public void levelDown()
+		{
+			if (currentLevel > 0) currentLevel--;
 		}
 
 		public int putPlaneInAerodrome(ITransport plane)
 		{
-			return aerodrome + plane;
+			return aerodromeStages[currentLevel] + plane;
 		}
 
 		public ITransport getPlaneInAerodrome(int index)
 		{
-			return aerodrome - index;
+			return aerodromeStages[currentLevel] - index;
 		}
 
 		public void draw(Graphics g,int width,int height)
 		{
 			drawMarking(g);
-			for(int i = 0; i < countPlaces; i++)
-			{
-				var plane = aerodrome.getObject(i);
-				if (plane != null)
+			
+				for (int i = 0; i < countPlaces; i++)
 				{
-					plane.setPosition(5 + i / 5 * placeWidth + 5, i % 5 * placeHeight + 15);
-					plane.draw(g);
+					var plane = aerodromeStages[currentLevel][i];
+					if (plane != null)
+					{
+						plane.setPosition(5 + i / 5 * placeWidth + 5, i % 5 * placeHeight + 15);
+						plane.draw(g);
+					}
 				}
-			}
+			
 		}
 
 		public void drawMarking(Graphics g)
