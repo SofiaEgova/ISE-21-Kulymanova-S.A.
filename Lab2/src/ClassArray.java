@@ -1,37 +1,40 @@
+import java.util.Dictionary;
+import java.util.Hashtable;
 
 public class ClassArray <T extends ITransport> {
-	private T[] places;
+	
+	private Dictionary<Integer, T> places;
+	int maxCount;
 	private T defaultValue;
 
 	public ClassArray(int size, T defVal)
 	{
 		defaultValue = defVal;
-		places = (T[]) new ITransport[size];
-		for(int i = 0; i < places.length; i++)
-		{
-			places[i] = defaultValue;
-		}
+		places = new Hashtable<Integer, T>();
+		maxCount = size;
 	}
 	
 	public static <T extends ITransport> int plus(ClassArray<T> p, T plane)
 	{
-		for(int i = 0; i < p.places.length; i++)
+		if (p.places.size() == p.maxCount) return -1;
+		for(int i = 0; i < p.places.size(); i++)
 		{
 			if (p.checkFree(i))
 			{
-				p.places[i] = plane;
+				p.places.put(i, plane);
 				return i;
 			}
 		}
-		return -1;
+		p.places.put(p.places.size(), plane);
+		return p.places.size() - 1;
 	}
 
 	public static <T extends ITransport> T minus(ClassArray<T> p, int index)
 	{
-		if (!p.checkFree(index))
+		if (p.places.get(index) != null)
 		{
-			T plane = p.places[index];
-			p.places[index] = p.defaultValue;
+			T plane = p.places.get(index);
+			p.places.remove(index);
 			return plane;
 		}
 		return p.defaultValue;
@@ -39,17 +42,13 @@ public class ClassArray <T extends ITransport> {
 
 	public boolean checkFree(int index)
 	{
-		if (index < 0 || index > places.length) return false;
-		if (places[index] == null) return true;
-		if (places[index].equals(defaultValue)) return true;
-
+		if(places.get(index)==null) return true;
 		return false;
 	}
 	
-	public T getObject(int index)
-	{
-		if (index > -1 && index < places.length) return places[index];
-
+	
+	public T getPlane(int ind) {
+		if(places.get(ind)!=null) return places.get(ind);
 		return defaultValue;
 	}
 	

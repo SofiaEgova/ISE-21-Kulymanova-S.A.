@@ -1,26 +1,49 @@
 import java.awt.Color;
 import java.awt.Graphics;
+import java.util.ArrayList;
 
 public class Aerodrome {
-	ClassArray<ITransport> aerodrome;
+	
+	ArrayList<ClassArray<ITransport>> aerodromeStages;
 
 	int countPlaces = 20;
 	int placeWidth = 210;
 	int placeHeight = 80;
+	
+	int currentLevel;
 
-	public Aerodrome()
+	public Aerodrome(int countStages)
 	{
-		aerodrome = new ClassArray<ITransport>(countPlaces, null);
+		aerodromeStages = new ArrayList<ClassArray<ITransport>>(countStages);
+		for (int i = 0; i < countStages; i++)
+		{
+			aerodromeStages.add(new ClassArray<ITransport>(countPlaces, null));
+		}
+	}
+	
+	public int getCurrentLevel(){
+			return currentLevel;	
+	}
+
+
+	public void levelUp()
+	{
+		if (currentLevel + 1 < aerodromeStages.size()) currentLevel++;
+	}
+
+	public void levelDown()
+	{
+		if (currentLevel > 0) currentLevel--;
 	}
 
 	public int putPlaneInAerodrome(ITransport plane)
 	{
-		return aerodrome.plus(aerodrome, plane);
+		return aerodromeStages.get(currentLevel).plus(aerodromeStages.get(currentLevel), plane);
 	}
 
 	public ITransport getPlaneInAerodrome(int index)
 	{
-		return aerodrome.minus(aerodrome, index);
+		return aerodromeStages.get(currentLevel).minus(aerodromeStages.get(currentLevel), index);
 	}
 
 	public void draw(Graphics g,int width,int height)
@@ -28,7 +51,7 @@ public class Aerodrome {
 		drawMarking(g);
 		for(int i = 0; i < countPlaces; i++)
 		{
-			ITransport plane = aerodrome.getObject(i);
+			ITransport plane = aerodromeStages.get(currentLevel).getPlane(i);
 			if (plane != null)
 			{
 				plane.setPosition(5 + i / 5 * placeWidth + 5, i % 5 * placeHeight + 15);
