@@ -34,11 +34,10 @@
 			this.label1 = new System.Windows.Forms.Label();
 			this.maskedTextBox1 = new System.Windows.Forms.MaskedTextBox();
 			this.pictureBoxTakePlane = new System.Windows.Forms.PictureBox();
-			this.butSetPlane = new System.Windows.Forms.Button();
-			this.butSetFigther = new System.Windows.Forms.Button();
 			this.listBoxLevels = new System.Windows.Forms.ListBox();
 			this.btnLevelDown = new System.Windows.Forms.Button();
 			this.btnLevelUp = new System.Windows.Forms.Button();
+			this.btnGetPlane = new System.Windows.Forms.Button();
 			((System.ComponentModel.ISupportInitialize)(this.pictureBoxAerodrome)).BeginInit();
 			this.groupBox1.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.pictureBoxTakePlane)).BeginInit();
@@ -101,26 +100,6 @@
 			this.pictureBoxTakePlane.TabIndex = 0;
 			this.pictureBoxTakePlane.TabStop = false;
 			// 
-			// butSetPlane
-			// 
-			this.butSetPlane.Location = new System.Drawing.Point(868, 373);
-			this.butSetPlane.Name = "butSetPlane";
-			this.butSetPlane.Size = new System.Drawing.Size(110, 29);
-			this.butSetPlane.TabIndex = 2;
-			this.butSetPlane.Text = "Set Plane";
-			this.butSetPlane.UseVisualStyleBackColor = true;
-			this.butSetPlane.Click += new System.EventHandler(this.butSetPlane_Click);
-			// 
-			// butSetFigther
-			// 
-			this.butSetFigther.Location = new System.Drawing.Point(868, 412);
-			this.butSetFigther.Name = "butSetFigther";
-			this.butSetFigther.Size = new System.Drawing.Size(110, 29);
-			this.butSetFigther.TabIndex = 3;
-			this.butSetFigther.Text = "Set Figther";
-			this.butSetFigther.UseVisualStyleBackColor = true;
-			this.butSetFigther.Click += new System.EventHandler(this.butSetFigther_Click);
-			// 
 			// listBoxLevels
 			// 
 			this.listBoxLevels.FormattingEnabled = true;
@@ -149,16 +128,25 @@
 			this.btnLevelUp.UseVisualStyleBackColor = true;
 			this.btnLevelUp.Click += new System.EventHandler(this.btnLevelUp_Click);
 			// 
+			// btnGetPlane
+			// 
+			this.btnGetPlane.Location = new System.Drawing.Point(894, 375);
+			this.btnGetPlane.Name = "btnGetPlane";
+			this.btnGetPlane.Size = new System.Drawing.Size(127, 49);
+			this.btnGetPlane.TabIndex = 7;
+			this.btnGetPlane.Text = "Get Plane";
+			this.btnGetPlane.UseVisualStyleBackColor = true;
+			this.btnGetPlane.Click += new System.EventHandler(this.btnGetPlane_Click);
+			// 
 			// FormAerodrome
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(1067, 453);
+			this.Controls.Add(this.btnGetPlane);
 			this.Controls.Add(this.btnLevelUp);
 			this.Controls.Add(this.btnLevelDown);
 			this.Controls.Add(this.listBoxLevels);
-			this.Controls.Add(this.butSetFigther);
-			this.Controls.Add(this.butSetPlane);
 			this.Controls.Add(this.groupBox1);
 			this.Controls.Add(this.pictureBoxAerodrome);
 			this.Name = "FormAerodrome";
@@ -179,10 +167,9 @@
 		private System.Windows.Forms.Label label1;
 		private System.Windows.Forms.MaskedTextBox maskedTextBox1;
 		private System.Windows.Forms.PictureBox pictureBoxTakePlane;
-		private System.Windows.Forms.Button butSetPlane;
-		private System.Windows.Forms.Button butSetFigther;
 		private System.Windows.Forms.ListBox listBoxLevels;
 		private System.Windows.Forms.Button btnLevelDown;
 		private System.Windows.Forms.Button btnLevelUp;
+		private System.Windows.Forms.Button btnGetPlane;
 	}
 }
