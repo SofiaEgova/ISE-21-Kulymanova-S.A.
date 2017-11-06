@@ -8,6 +8,8 @@ namespace Lab2
 {
     static class Program
     {
+
+		//public delegate void myDel (ITransport plane);
         /// <summary>
         /// Главная точка входа для приложения.
         /// </summary>

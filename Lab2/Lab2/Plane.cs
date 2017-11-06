@@ -30,7 +30,10 @@ namespace Lab2
             startY = y;
         }
         
-        
+        public virtual void setMainColor(Color c)
+		{
+			colorBody = c;
+		}
 
 
     }

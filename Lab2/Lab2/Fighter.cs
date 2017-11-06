@@ -14,7 +14,12 @@ namespace Lab2
 
         private Color colorFight;
 
-        public Fighter(int maxSpeed, int fuel,int maxHeight, int weight, Color color, bool bomb,bool gun,Color colorFight):base(maxSpeed, fuel, maxHeight,weight, color)
+		public void setcolorFight(Color d)
+		{
+			colorFight = d;
+		}
+
+		public Fighter(int maxSpeed, int fuel,int maxHeight, int weight, Color color, bool bomb,bool gun,Color colorFight):base(maxSpeed, fuel, maxHeight,weight, color)
         {
             this.bomb = bomb;
             this.gun = gun;

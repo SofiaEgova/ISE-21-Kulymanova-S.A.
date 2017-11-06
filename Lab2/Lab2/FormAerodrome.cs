@@ -13,7 +13,7 @@ namespace Lab2
 	public partial class FormAerodrome : Form
 	{
 		Aerodrome aerodrome;
-
+		FormSelectPlane formSelect;
 
 
 		public FormAerodrome()
@@ -105,6 +105,27 @@ namespace Lab2
 			listBoxLevels.SelectedIndex = aerodrome.getCurrentLevel;
 			draw();
 
+		}
+
+		private void btnGetPlane_Click(object sender, EventArgs e)
+		{
+			formSelect = new FormSelectPlane();
+			formSelect.addEvent(addPlane);
+			formSelect.Show();
+		}
+		
+		private void addPlane(ITransport plane)
+		{
+			if (plane != null)
+			{
+				int place = aerodrome.putPlaneInAerodrome(plane);
+				if (place > -1)
+				{
+					draw();
+					MessageBox.Show("Ваше место " + place);
+				}
+				else MessageBox.Show("Самолет поставить не удалось");
+			}
 		}
 	}
 }
