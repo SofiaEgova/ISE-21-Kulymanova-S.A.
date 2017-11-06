@@ -15,8 +15,10 @@ import javax.swing.JOptionPane;
 
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
+import java.util.Vector;
 import java.awt.event.ActionEvent;
 import javax.swing.JCheckBox;
+import javax.swing.JList;
 
 public class Main {
 
@@ -26,6 +28,9 @@ public class Main {
 	private Frame btnColor;
 	private Frame btnSelectFigtherColor;
 	private JTextField numPlace;
+	JPanel panel;
+	private String[] elements = new String[6];
+	JList listLevels;
 
 	/**
 	 * Launch the application.
@@ -47,11 +52,14 @@ public class Main {
 	 * Create the application.
 	 */
 	public Main() {
-		aerodrome = new Aerodrome();
-	
+		aerodrome = new Aerodrome(5);
+
 		initialize();
-	    
-	    
+		for (int i = 0; i < 5; i++) {
+			elements[i] = "Уровень " + (i+1);
+		}
+
+		listLevels.setSelectedIndex(aerodrome.getCurrentLevel());
 	}
 
 	/**
@@ -62,12 +70,10 @@ public class Main {
 		frame.setBounds(100, 100, 1080, 559);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
-		
 
-		JPanel panel = new Panel(aerodrome);
-		panel.setBounds(10, 11, 854, 499);
-		frame.getContentPane().add(panel);
-		
+			panel = new Panel(aerodrome);
+			panel.setBounds(10, 11, 854, 499);
+			frame.getContentPane().add(panel);
 		
 
 		JButton btnSetPlane = new JButton("Set Plane");
@@ -94,14 +100,12 @@ public class Main {
 				if (colorDialog1 != null) {
 					Color colorDialog = JColorChooser.showDialog(null, "JColorChooser Sample", null);
 					if (colorDialog != null) {
-						ITransport plane = new  Figther(1000, 100, 30, 30, colorDialog1, true, true, colorDialog);
+						ITransport plane = new Figther(1000, 100, 30, 30, colorDialog1, true, true, colorDialog);
 						int place = aerodrome.putPlaneInAerodrome(plane);
 						panel.repaint();
 						JOptionPane.showMessageDialog(null, "Ваше место " + place);
 					}
 				}
-
-				
 
 			}
 		});
@@ -115,8 +119,8 @@ public class Main {
 		JButton btnTake = new JButton("Take");
 		btnTake.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				
-				if(checkPlace(numPlace.getText())) {
+
+				if (checkPlace(numPlace.getText())) {
 					ITransport plane = aerodrome.getPlaneInAerodrome(Integer.parseInt(numPlace.getText()));
 					Graphics gr = panelTake.getGraphics();
 					gr.clearRect(0, 0, panelTake.getWidth(), panelTake.getHeight());
@@ -124,7 +128,7 @@ public class Main {
 					plane.draw(gr);
 					panel.repaint();
 				}
-				
+
 			}
 		});
 		btnTake.setBounds(973, 233, 81, 23);
@@ -138,9 +142,35 @@ public class Main {
 		numPlace.setBounds(968, 202, 86, 20);
 		frame.getContentPane().add(numPlace);
 		numPlace.setColumns(10);
-		
+
+		listLevels = new JList(elements);
+		listLevels.setBounds(891, 373, 153, 111);
+		frame.getContentPane().add(listLevels);
+
+		JButton btnLevelDown = new JButton("<<");
+		btnLevelDown.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				aerodrome.levelDown();
+				listLevels.setSelectedIndex(aerodrome.getCurrentLevel());
+				panel.repaint();
+			}
+		});
+		btnLevelDown.setBounds(869, 495, 89, 23);
+		frame.getContentPane().add(btnLevelDown);
+
+		JButton btnLevelUp = new JButton(">>");
+		btnLevelUp.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				aerodrome.levelUp();
+				listLevels.setSelectedIndex(aerodrome.getCurrentLevel());
+				panel.repaint();
+			}
+		});
+		btnLevelUp.setBounds(973, 495, 89, 23);
+		frame.getContentPane().add(btnLevelUp);
+
 	}
-	
+
 	private boolean checkPlace(String str) {
 		try {
 			Integer.parseInt(str);
@@ -148,9 +178,8 @@ public class Main {
 			return false;
 		}
 
-		if(Integer.parseInt(str)>20) return false;
+		if (Integer.parseInt(str) > 20)
+			return false;
 		return true;
 	}
-
-	
 }

@@ -10,8 +10,8 @@ public class War extends Plane {
 		this.color = colorWar;
 		this.maxHeight = maxHeight;
 
-		startX = 10;
-		startY = 100;
+		startX = 5;
+		startY = 5;
 
 	}
 
