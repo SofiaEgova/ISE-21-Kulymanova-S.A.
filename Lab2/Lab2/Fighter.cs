@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -26,6 +26,24 @@ namespace Lab2
             this.colorFight = colorFight;
         }
 
+public Fighter(string info) : base(info)
+        {
+            string[] strs = info.Split(';');
+            if (strs.Length == 8)
+            {
+                this.maxSpeed = Convert.ToInt32(strs[0]);
+                this.fuel = Convert.ToInt32(strs[1]);
+                this.weight = Convert.ToInt32(strs[2]);
+                this.colorBody = Color.FromName(strs[3]);
+                this.maxHeight = Convert.ToInt32(strs[4]);
+                this.bomb = Convert.ToBoolean(strs[5]);
+                this.gun = Convert.ToBoolean(strs[6]);
+                this.colorFight = Color.FromName(strs[7]);
+            }
+
+        }
+
+
         protected override void drawWarPlane(Graphics g)
         {
 			base.drawWarPlane(g);
@@ -50,5 +68,10 @@ namespace Lab2
 
             
         }
+public override string getInfo()
+        {
+            return maxSpeed + ";" + fuel + ";" + weight + ";" + colorBody.Name + ";" + maxHeight + ";" + bomb + ";" + gun + ";" + colorFight.Name;
+        }
+
     }
 }

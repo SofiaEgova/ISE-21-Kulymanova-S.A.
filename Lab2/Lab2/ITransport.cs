@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -13,5 +13,7 @@ namespace Lab2
         void move(Graphics g);
         void setPosition(int x, int y);
 		void setMainColor(Color c);
+string getInfo();
+
     }
 }
