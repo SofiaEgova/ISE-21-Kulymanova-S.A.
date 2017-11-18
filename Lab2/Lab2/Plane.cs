@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -23,6 +23,8 @@ namespace Lab2
 
         public abstract void move(Graphics g);
         public abstract void draw(Graphics g);
+public abstract string getInfo();
+
 
         public void setPosition(int x,int y)
         {

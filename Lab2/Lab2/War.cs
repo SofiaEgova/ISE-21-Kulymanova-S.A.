@@ -1,4 +1,4 @@
-Ôªøusing System;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -24,6 +24,21 @@ namespace Lab2
 
 
         }
+public War(string info)
+        {
+            string[] strs = info.Split(';');
+            if (strs.Length == 5)
+            {
+                this.maxSpeed = Convert.ToInt32(strs[0]);
+                this.fuel = Convert.ToInt32(strs[1]);
+                this.weight = Convert.ToInt32(strs[2]);
+                this.colorBody = Color.FromName(strs[3]);
+                this.maxHeight = Convert.ToInt32(strs[4]);
+            }
+            startX = 10;
+            startY = 100;
+        }
+
 
 
         public override int maxSpeed
@@ -82,7 +97,7 @@ namespace Lab2
             }
             else
             {
-                MessageBox.Show("–ù–µ—Ç—É —Ç–æ–ø–ª–∏–≤–∞", "–û—à–∏–±–∫–∞!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("ÕÂÚÛ ÚÓÔÎË‚‡", "Œ¯Ë·Í‡!", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             
 
@@ -109,6 +124,10 @@ namespace Lab2
 
 
 		}
+public override string getInfo()
+        {
+            return maxSpeed + ";" + fuel + ";" + weight + ";" + colorBody.Name + ";" + maxHeight;
+        }
 
 
     }

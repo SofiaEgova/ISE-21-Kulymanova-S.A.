@@ -1,4 +1,4 @@
-п»їusing System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -22,7 +22,7 @@ namespace Lab2
 			aerodrome = new Aerodrome(5);
 			for (int i = 1; i < 6; i++)
 			{
-				listBoxLevels.Items.Add("РЈСЂРѕРІРµРЅСЊ " + i);
+				listBoxLevels.Items.Add("Уровень " + i);
 			}
 			listBoxLevels.SelectedIndex = aerodrome.getCurrentLevel;
 			
@@ -50,7 +50,7 @@ namespace Lab2
 				var plane = new War(1000, 100, 30, 30, dialog.Color);
 				int place = aerodrome.putPlaneInAerodrome(plane);
 				draw();
-				MessageBox.Show("Р’Р°С€РµРјРµСЃС‚Рѕ: " + place);
+				MessageBox.Show("Вашеместо: " + place);
 
 			}
 		}
@@ -66,7 +66,7 @@ namespace Lab2
 					var plane = new Fighter(1000, 100, 30, 30, dialog.Color, true, true, dialogDop.Color);
 					int place = aerodrome.putPlaneInAerodrome(plane);
 					draw();
-					MessageBox.Show("Р’Р°С€РµРјРµСЃС‚Рѕ: " + place);
+					MessageBox.Show("Вашеместо: " + place);
 
 				}
 			}
@@ -122,10 +122,49 @@ namespace Lab2
 				if (place > -1)
 				{
 					draw();
-					MessageBox.Show("Р’Р°С€Рµ РјРµСЃС‚Рѕ " + place);
+					MessageBox.Show("Ваше место " + place);
 				}
-				else MessageBox.Show("РЎР°РјРѕР»РµС‚ РїРѕСЃС‚Р°РІРёС‚СЊ РЅРµ СѓРґР°Р»РѕСЃСЊ");
+				else MessageBox.Show("Самолет поставить не удалось");
 			}
 		}
+private void сохранитьToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (saveFileDialog1.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                if (aerodrome.saveData(saveFileDialog1.FileName))
+                {
+                    MessageBox.Show("Сохранение прошло успешно", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                else
+                {
+                    MessageBox.Show("Не сохранилось", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+
+        }
+
+        private void загрузитьToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (openFileDialog1.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                MessageBox.Show("open", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                if (aerodrome.loadData(openFileDialog1.FileName))
+                {
+                    MessageBox.Show("load", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    if (aerodrome.loadData(openFileDialog1.FileName))
+                    {
+                        MessageBox.Show("Загрузили", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                    else
+                    {
+                        MessageBox.Show("Не загрузили", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+            }
+            draw();
+        
+
+    }
+
 	}
 }
