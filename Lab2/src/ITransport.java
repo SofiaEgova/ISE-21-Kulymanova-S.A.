@@ -1,3 +1,4 @@
+import java.awt.Color;
 import java.awt.Graphics;
 
 public interface ITransport {
@@ -6,4 +7,6 @@ public interface ITransport {
 	void move(Graphics g);
 
 	void setPosition(int x, int y);
+
+	void setMainColor(Color color);
 }

@@ -31,6 +31,7 @@ public class Main {
 	JPanel panel;
 	private String[] elements = new String[6];
 	JList listLevels;
+	SelectPlane select;
 
 	/**
 	 * Launch the application.
@@ -56,61 +57,36 @@ public class Main {
 
 		initialize();
 		for (int i = 0; i < 5; i++) {
-			elements[i] = "Уровень " + (i+1);
+			elements[i] = "РЈСЂРѕРІРµРЅСЊ " + (i + 1);
 		}
 
 		listLevels.setSelectedIndex(aerodrome.getCurrentLevel());
+
 	}
 
 	/**
 	 * Initialize the contents of the frame.
 	 */
+
+	public void getPlane() {
+		select = new SelectPlane(frame);
+		if (select.res()) {
+			ITransport plane = select.getPlane();
+			int place = aerodrome.putPlaneInAerodrome(plane);
+			panel.repaint();
+			System.out.println("Your place: " + place);
+		}
+	}
+
 	private void initialize() {
 		frame = new JFrame();
 		frame.setBounds(100, 100, 1080, 559);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 
-			panel = new Panel(aerodrome);
-			panel.setBounds(10, 11, 854, 499);
-			frame.getContentPane().add(panel);
-		
-
-		JButton btnSetPlane = new JButton("Set Plane");
-		btnSetPlane.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-
-				Color colorDialog = JColorChooser.showDialog(null, "JColorChooser Sample", null);
-				if (colorDialog != null) {
-					ITransport plane = new War(1000, 100, 30, 30, colorDialog);
-					int place = aerodrome.putPlaneInAerodrome(plane);
-					panel.repaint();
-					JOptionPane.showMessageDialog(null, "Ваше место " + place);
-				}
-
-			}
-		});
-		btnSetPlane.setBounds(939, 293, 115, 23);
-		frame.getContentPane().add(btnSetPlane);
-
-		JButton btnSetFigther = new JButton("Set Figther");
-		btnSetFigther.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				Color colorDialog1 = JColorChooser.showDialog(null, "JColorChooser Sample", null);
-				if (colorDialog1 != null) {
-					Color colorDialog = JColorChooser.showDialog(null, "JColorChooser Sample", null);
-					if (colorDialog != null) {
-						ITransport plane = new Figther(1000, 100, 30, 30, colorDialog1, true, true, colorDialog);
-						int place = aerodrome.putPlaneInAerodrome(plane);
-						panel.repaint();
-						JOptionPane.showMessageDialog(null, "Ваше место " + place);
-					}
-				}
-
-			}
-		});
-		btnSetFigther.setBounds(939, 330, 115, 23);
-		frame.getContentPane().add(btnSetFigther);
+		panel = new Panel(aerodrome);
+		panel.setBounds(10, 11, 854, 499);
+		frame.getContentPane().add(panel);
 
 		JPanel panelTake = new JPanel();
 		panelTake.setBounds(901, 11, 153, 170);
@@ -168,6 +144,16 @@ public class Main {
 		});
 		btnLevelUp.setBounds(973, 495, 89, 23);
 		frame.getContentPane().add(btnLevelUp);
+
+		JButton btnGetPlane = new JButton("Get Plane");
+		btnGetPlane.addActionListener(new ActionListener() {
+			@SuppressWarnings("deprecation")
+			public void actionPerformed(ActionEvent e) {
+				getPlane();
+			}
+		});
+		btnGetPlane.setBounds(927, 300, 89, 23);
+		frame.getContentPane().add(btnGetPlane);
 
 	}
 
