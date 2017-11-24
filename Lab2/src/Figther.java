@@ -32,4 +32,8 @@ public class Figther extends War {
 		}
 
 	}
+	
+	public void setColorFight(Color f) {
+		colorFight = f;
+	}
 }

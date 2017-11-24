@@ -31,4 +31,8 @@ public abstract class Plane implements ITransport {
 		startX = x;
 		startY = y;
 	}
+
+	public void setMainColor(Color c) {
+		color = c;
+	}
 }
