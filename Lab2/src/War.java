@@ -1,13 +1,17 @@
 import java.awt.Color;
 import java.awt.Graphics;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 
-public class War extends Plane {
+public class War extends Plane implements Serializable {
 
 	public War(int maxSpeed, int fuel, int maxHeight, int weight, Color colorWar) {
 		this.maxSpeed = maxSpeed;
 		this.fuel = fuel;
 		this.weight = weight;
-		this.color = colorWar;
+		this.colorBody = colorWar;
 		this.maxHeight = maxHeight;
 
 		startX = 5;
@@ -62,7 +66,6 @@ public class War extends Plane {
 
 	@Override
 	public void move(Graphics g) {
-		// TODO Auto-generated method stub
 		if (this.fuel > 0) {
 			if (startY > maxHeight)
 				startY -= 3;
@@ -82,10 +85,32 @@ public class War extends Plane {
 	}
 
 	protected void drawWarPlane(Graphics g) {
-		g.setColor(color);
+		g.setColor(colorBody);
 		g.fillOval(startX + 10, startY, 20, 50);
 		g.fillOval(startX, startY + 20, 60, 20);
 
 	}
+
+	@Override
+	public String getInfo() {
+		// TODO Auto-generated method stub
+		return maxSpeed + ";" + fuel + ";" + weight + ";" + maxHeight + ";" + colorBody;
+
+	}
+	
+	private void writeObject(ObjectOutputStream s) throws IOException {
+        s.defaultWriteObject();
+        s.writeInt(colorBody.getRed());
+        s.writeInt(colorBody.getGreen());
+        s.writeInt(colorBody.getBlue());
+    }
+
+    private void readObject(ObjectInputStream s) throws IOException, ClassNotFoundException {
+        s.defaultReadObject();
+        int red = s.readInt();
+        int green = s.readInt();
+        int blue = s.readInt();
+        colorBody = new Color(red, green, blue);
+    }
 
 }
