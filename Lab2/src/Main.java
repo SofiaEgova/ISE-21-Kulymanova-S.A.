@@ -8,17 +8,27 @@ import java.awt.Graphics;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.JButton;
 import javax.swing.JColorChooser;
+import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.Vector;
 import java.awt.event.ActionEvent;
 import javax.swing.JCheckBox;
 import javax.swing.JList;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 
 public class Main {
 
@@ -80,12 +90,12 @@ public class Main {
 
 	private void initialize() {
 		frame = new JFrame();
-		frame.setBounds(100, 100, 1080, 559);
+		frame.setBounds(100, 100, 1080, 610);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 
 		panel = new Panel(aerodrome);
-		panel.setBounds(10, 11, 854, 499);
+		panel.setBounds(10, 26, 854, 484);
 		frame.getContentPane().add(panel);
 
 		JPanel panelTake = new JPanel();
@@ -155,6 +165,45 @@ public class Main {
 		btnGetPlane.setBounds(927, 300, 89, 23);
 		frame.getContentPane().add(btnGetPlane);
 
+		JMenuBar menuBar = new JMenuBar();
+		JMenu menu = new JMenu("File");
+		frame.setJMenuBar(menuBar);
+		menuBar.add(menu);
+		JMenuItem menuSave = new JMenuItem("Save");
+		menu.add(menuSave);
+		JMenuItem menuOpen = new JMenuItem("Open");
+		menu.add(menuOpen);
+
+		menuSave.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+
+				JFileChooser filesave = new JFileChooser();
+
+				if (filesave.showDialog(null, "Save") == JFileChooser.APPROVE_OPTION) {
+					try {
+						if (aerodrome.save(filesave.getSelectedFile().getPath()))
+							if (filesave.getSelectedFile().getPath() != null)
+								System.out.println("Good");
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+			}
+		});
+
+		menuOpen.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				JFileChooser fileopen = new JFileChooser();
+				if (fileopen.showDialog(null, "Open") == JFileChooser.APPROVE_OPTION) {
+					if (aerodrome.load(fileopen.getSelectedFile().getPath()))
+						if (fileopen.getSelectedFile().getPath() != null)
+							System.out.println("Good");
+				}
+				panel.repaint();
+			}
+		});
+
 	}
 
 	private boolean checkPlace(String str) {
@@ -168,4 +217,5 @@ public class Main {
 			return false;
 		return true;
 	}
+
 }

@@ -9,7 +9,7 @@ public abstract class Plane implements ITransport {
 	public int weight;
 	public int maxHeight;
 	public int fuel;
-	public Color color;
+	transient public Color colorBody;
 
 	protected abstract void setmaxSpeed(int s);
 
@@ -33,6 +33,7 @@ public abstract class Plane implements ITransport {
 	}
 
 	public void setMainColor(Color c) {
-		color = c;
+		colorBody = c;
 	}
+	public abstract String getInfo();
 }

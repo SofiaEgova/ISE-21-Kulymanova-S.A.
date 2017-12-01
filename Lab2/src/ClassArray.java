@@ -1,7 +1,8 @@
+import java.io.Serializable;
 import java.util.Dictionary;
 import java.util.Hashtable;
 
-public class ClassArray <T extends ITransport> {
+public class ClassArray <T extends ITransport> implements Serializable {
 	
 	private Dictionary<Integer, T> places;
 	int maxCount;
