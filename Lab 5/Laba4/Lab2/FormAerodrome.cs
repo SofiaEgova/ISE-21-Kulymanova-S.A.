@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NLog;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -14,11 +15,13 @@ namespace Lab2
 	{
 		Aerodrome aerodrome;
 		FormSelectPlane formSelect;
+		private Logger log;
 
 
 		public FormAerodrome()
 		{
 			InitializeComponent();
+			log = LogManager.GetCurrentClassLogger();
 			aerodrome = new Aerodrome(5);
 			for (int i = 1; i < 6; i++)
 			{
@@ -51,8 +54,9 @@ namespace Lab2
 				int place = aerodrome.putPlaneInAerodrome(plane);
 				draw();
 				MessageBox.Show("Вашеместо: " + place);
-
+				log.Info("Поставили самолет на место " + place);
 			}
+
 		}
 
 		private void butSetFigther_Click(object sender, EventArgs e)
@@ -67,7 +71,7 @@ namespace Lab2
 					int place = aerodrome.putPlaneInAerodrome(plane);
 					draw();
 					MessageBox.Show("Вашеместо: " + place);
-
+					log.Info("Поставили истребитель на место " + place);
 				}
 			}
 		}
@@ -80,13 +84,25 @@ namespace Lab2
 
 				if (maskedTextBox1.Text != "")
 				{
-					var plane = aerodrome.getPlaneInAerodrome(Convert.ToInt32(maskedTextBox1.Text));
-					Bitmap bmp = new Bitmap(pictureBoxTakePlane.Width, pictureBoxTakePlane.Height);
-					Graphics gr = Graphics.FromImage(bmp);
-					plane.setPosition(5, 5);
-					plane.draw(gr);
-					pictureBoxTakePlane.Image = bmp;
-					draw();
+					try
+					{
+						var plane = aerodrome.getPlaneInAerodrome(Convert.ToInt32(maskedTextBox1.Text));
+						Bitmap bmp = new Bitmap(pictureBoxTakePlane.Width, pictureBoxTakePlane.Height);
+						Graphics gr = Graphics.FromImage(bmp);
+						plane.setPosition(5, 5);
+						plane.draw(gr);
+						pictureBoxTakePlane.Image = bmp;
+						draw();
+						log.Info("Забрали самолет с места" + maskedTextBox1.Text);
+					}
+					catch (AerodromeIndexOutOfRangeException ex)
+					{
+						MessageBox.Show(ex.Message, "Неверный номер", MessageBoxButtons.OK, MessageBoxIcon.Error);
+					}
+					catch (Exception ex)
+					{
+						MessageBox.Show(ex.Message, "Общая ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+					}
 				}
 			}
 		}
@@ -96,7 +112,7 @@ namespace Lab2
 			aerodrome.levelDown();
 			listBoxLevels.SelectedIndex = aerodrome.getCurrentLevel;
 			draw();
-
+			log.Info("Спустились на уровень ниже, сечас мы на " + aerodrome.getCurrentLevel);
 		}
 
 		private void btnLevelUp_Click(object sender, EventArgs e)
@@ -104,7 +120,7 @@ namespace Lab2
 			aerodrome.levelUp();
 			listBoxLevels.SelectedIndex = aerodrome.getCurrentLevel;
 			draw();
-
+			log.Info("Поднялись на уровень выше, сечас мы на " + aerodrome.getCurrentLevel);
 		}
 
 		private void btnGetPlane_Click(object sender, EventArgs e)
@@ -112,19 +128,31 @@ namespace Lab2
 			formSelect = new FormSelectPlane();
 			formSelect.addEvent(addPlane);
 			formSelect.Show();
+			
 		}
 		
 		private void addPlane(ITransport plane)
 		{
 			if (plane != null)
 			{
-				int place = aerodrome.putPlaneInAerodrome(plane);
-				if (place > -1)
+				try
 				{
-					draw();
-					MessageBox.Show("Ваше место " + place);
+					int place = aerodrome.putPlaneInAerodrome(plane);
+					if (place > -1)
+					{
+						draw();
+						MessageBox.Show("Ваше место " + place);
+						log.Info("Добавили самолет на место " + place);
+					}
 				}
-				else MessageBox.Show("Самолет поставить не удалось");
+				catch (AerodromeOverflowException ex) {
+					MessageBox.Show(ex.Message, "Самолет поставить не удалось", MessageBoxButtons.OK, MessageBoxIcon.Error);
+				}
+				catch (Exception ex)
+				{
+					MessageBox.Show(ex.Message, "Общая ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+				}
+				
 			}
 		}
 
@@ -135,6 +163,7 @@ namespace Lab2
 				if (aerodrome.saveData(saveFileDialog1.FileName))
 				{
 					MessageBox.Show("Сохранение прошло успешно", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
+					log.Info("Сохранили аэродром в файл " + saveFileDialog1.FileName);
 				}
 				else
 				{
@@ -154,6 +183,7 @@ namespace Lab2
 					if (aerodrome.loadData(openFileDialog1.FileName))
 					{
 						MessageBox.Show("Загрузили", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
+						log.Info("Загрузили аэродром из файла " + openFileDialog1.FileName);
 					}
 					else
 					{

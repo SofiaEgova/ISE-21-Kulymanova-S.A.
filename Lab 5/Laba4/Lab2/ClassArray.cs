@@ -22,8 +22,8 @@ namespace Lab2
 
 		public static int operator +(ClassArray<T> p, T plane)
 		{
-			if (p.places.Count == p.maxCount) return -1;
-			for(int i = 0; i < p.places.Count; i++)
+			if (p.places.Count == p.maxCount) throw new AerodromeOverflowException();
+			for (int i = 0; i < p.places.Count; i++)
 			{
 				if (p.checkFree(i))
 				{
@@ -43,7 +43,7 @@ namespace Lab2
 				p.places.Remove(index);
 				return plane;
 			}
-			return p.defaultValue;
+			throw new AerodromeIndexOutOfRangeException();
 		}
 
 		public bool checkFree(int index)
