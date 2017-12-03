@@ -45,11 +45,11 @@ public class Aerodrome implements Serializable {
 			currentLevel--;
 	}
 
-	public int putPlaneInAerodrome(ITransport plane) {
+	public int putPlaneInAerodrome(ITransport plane) throws AerodromeOverflowException {
 		return aerodromeStages.get(currentLevel).plus(aerodromeStages.get(currentLevel), plane);
 	}
 
-	public ITransport getPlaneInAerodrome(int index) {
+	public ITransport getPlaneInAerodrome(int index) throws AerodromeIndexOutOfRangeException {
 		return aerodromeStages.get(currentLevel).minus(aerodromeStages.get(currentLevel), index);
 	}
 
@@ -87,7 +87,6 @@ public class Aerodrome implements Serializable {
 			e.printStackTrace();
 		}
 		ObjectOutputStream obSave = new ObjectOutputStream(save);
-		System.out.println(aerodromeStages.get(0).getPlane(0).getInfo());
 		obSave.writeObject(aerodromeStages);
 
 		return true;
@@ -98,7 +97,6 @@ public class Aerodrome implements Serializable {
 			ObjectInputStream obLoad = new ObjectInputStream(new BufferedInputStream(new FileInputStream(filename)));
 			try {
 				aerodromeStages = (ArrayList<ClassArray<ITransport>>)obLoad.readObject();
-				System.out.println(aerodromeStages.get(0).getPlane(0).getInfo());
 			} catch (ClassNotFoundException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

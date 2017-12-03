@@ -1,6 +1,4 @@
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Component;
+
 import java.awt.EventQueue;
 import java.awt.Frame;
 import java.awt.Graphics;
@@ -8,23 +6,17 @@ import java.awt.Graphics;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.JButton;
-import javax.swing.JColorChooser;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
 import java.awt.event.ActionListener;
-import java.awt.image.BufferedImage;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.util.Vector;
+import java.util.logging.FileHandler;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.awt.event.ActionEvent;
-import javax.swing.JCheckBox;
 import javax.swing.JList;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
@@ -42,6 +34,8 @@ public class Main {
 	private String[] elements = new String[6];
 	JList listLevels;
 	SelectPlane select;
+
+	private static Logger log;
 
 	/**
 	 * Launch the application.
@@ -64,7 +58,18 @@ public class Main {
 	 */
 	public Main() {
 		aerodrome = new Aerodrome(5);
-
+		log = Logger.getLogger(Main.class.getName());
+		FileHandler fh = null;
+		try {
+			fh = new FileHandler("E:\\log.txt");
+		} catch (SecurityException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		log.addHandler(fh);
 		initialize();
 		for (int i = 0; i < 5; i++) {
 			elements[i] = "Уровень " + (i + 1);
@@ -76,13 +81,25 @@ public class Main {
 
 	/**
 	 * Initialize the contents of the frame.
+	 * 
+	 * @throws AerodromeOverflowException
 	 */
 
 	public void getPlane() {
 		select = new SelectPlane(frame);
 		if (select.res()) {
 			ITransport plane = select.getPlane();
-			int place = aerodrome.putPlaneInAerodrome(plane);
+			int place = 0;
+			try {
+				place = aerodrome.putPlaneInAerodrome(plane);
+				log.log(Level.INFO,"Поставили самолет на место " + place);
+			} catch (AerodromeOverflowException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				JOptionPane.showMessageDialog(null, "Ошибка переполнения");
+			} catch (Exception ex) {
+				JOptionPane.showMessageDialog(null, "Общая ошибка");
+			}
 			panel.repaint();
 			System.out.println("Your place: " + place);
 		}
@@ -107,7 +124,16 @@ public class Main {
 			public void actionPerformed(ActionEvent arg0) {
 
 				if (checkPlace(numPlace.getText())) {
-					ITransport plane = aerodrome.getPlaneInAerodrome(Integer.parseInt(numPlace.getText()));
+					ITransport plane = null;
+					try {
+						plane = aerodrome.getPlaneInAerodrome(Integer.parseInt(numPlace.getText()));
+						log.log(Level.INFO,"Забрали самолет с места " + numPlace.getText());
+					} catch (AerodromeIndexOutOfRangeException e) {
+						// TODO Auto-generated catch block
+						JOptionPane.showMessageDialog(null, "Неверный номер");
+					} catch (Exception ex) {
+						JOptionPane.showMessageDialog(null, "Общая ошибка");
+					}
 					Graphics gr = panelTake.getGraphics();
 					gr.clearRect(0, 0, panelTake.getWidth(), panelTake.getHeight());
 					plane.setPosition(5, 5);
@@ -138,6 +164,7 @@ public class Main {
 			public void actionPerformed(ActionEvent arg0) {
 				aerodrome.levelDown();
 				listLevels.setSelectedIndex(aerodrome.getCurrentLevel());
+				log.log(Level.INFO,"Спустились на уровень ниже");
 				panel.repaint();
 			}
 		});
@@ -149,6 +176,7 @@ public class Main {
 			public void actionPerformed(ActionEvent e) {
 				aerodrome.levelUp();
 				listLevels.setSelectedIndex(aerodrome.getCurrentLevel());
+				log.log(Level.INFO,"Поднялись на уровень выше");
 				panel.repaint();
 			}
 		});
@@ -182,8 +210,11 @@ public class Main {
 				if (filesave.showDialog(null, "Save") == JFileChooser.APPROVE_OPTION) {
 					try {
 						if (aerodrome.save(filesave.getSelectedFile().getPath()))
-							if (filesave.getSelectedFile().getPath() != null)
+							if (filesave.getSelectedFile().getPath() != null) {
 								System.out.println("Good");
+								log.log(Level.INFO,"Сохранили аэродром в файл " + filesave.getSelectedFile().getName());
+							
+							}
 					} catch (IOException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
@@ -197,8 +228,11 @@ public class Main {
 				JFileChooser fileopen = new JFileChooser();
 				if (fileopen.showDialog(null, "Open") == JFileChooser.APPROVE_OPTION) {
 					if (aerodrome.load(fileopen.getSelectedFile().getPath()))
-						if (fileopen.getSelectedFile().getPath() != null)
+						if (fileopen.getSelectedFile().getPath() != null) {
 							System.out.println("Good");
+							log.log(Level.INFO,"Загрузили аэродром из файла " + fileopen.getSelectedFile().getName());
+							
+						}
 				}
 				panel.repaint();
 			}
