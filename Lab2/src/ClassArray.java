@@ -15,9 +15,9 @@ public class ClassArray <T extends ITransport> implements Serializable {
 		maxCount = size;
 	}
 	
-	public static <T extends ITransport> int plus(ClassArray<T> p, T plane)
+	public static <T extends ITransport> int plus(ClassArray<T> p, T plane) throws AerodromeOverflowException
 	{
-		if (p.places.size() == p.maxCount) return -1;
+		if (p.places.size() == p.maxCount) throw new AerodromeOverflowException();
 		for(int i = 0; i < p.places.size(); i++)
 		{
 			if (p.checkFree(i))
@@ -30,7 +30,7 @@ public class ClassArray <T extends ITransport> implements Serializable {
 		return p.places.size() - 1;
 	}
 
-	public static <T extends ITransport> T minus(ClassArray<T> p, int index)
+	public static <T extends ITransport> T minus(ClassArray<T> p, int index) throws AerodromeIndexOutOfRangeException
 	{
 		if (p.places.get(index) != null)
 		{
@@ -38,7 +38,7 @@ public class ClassArray <T extends ITransport> implements Serializable {
 			p.places.remove(index);
 			return plane;
 		}
-		return p.defaultValue;
+		throw new AerodromeIndexOutOfRangeException();
 	}
 
 	public boolean checkFree(int index)
