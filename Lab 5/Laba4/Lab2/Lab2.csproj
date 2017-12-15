@@ -51,6 +51,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Aerodrome.cs" />
+    <Compile Include="AerodromeAlreadyHaveException.cs" />
     <Compile Include="AerodromeIndexOutOfRangeException.cs" />
     <Compile Include="AerodromeOverflowException.cs" />
     <Compile Include="ClassArray.cs" />

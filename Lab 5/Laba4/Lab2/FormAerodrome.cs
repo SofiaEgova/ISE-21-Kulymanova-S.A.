@@ -193,5 +193,11 @@ namespace Lab2
 			}
 			draw();
 		}
-	}
+
+        private void btnSort_Click(object sender, EventArgs e)
+        {
+            aerodrome.Sort();
+            draw();
+        }
+    }
 }

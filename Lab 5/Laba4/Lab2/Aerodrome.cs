@@ -58,20 +58,16 @@ namespace Lab2
 			return aerodromeStages[currentLevel] - index;
 		}
 
-		public void draw(Graphics g,int width,int height)
-		{
-			drawMarking(g);
-			
-				for (int i = 0; i < countPlaces; i++)
-				{
-					var plane = aerodromeStages[currentLevel][i];
-					if (plane != null)
-					{
-						plane.setPosition(5 + i / 5 * placeWidth + 5, i % 5 * placeHeight + 15);
-						plane.draw(g);
-					}
-				}
-			
+        public void draw(Graphics g, int width, int height)
+        {
+            drawMarking(g);
+            int i = 0;
+            foreach (var plane in aerodromeStages[currentLevel])
+            {
+                plane.setPosition(5 + i / 5 * placeWidth + 5, i % 5 * placeHeight + 15);
+                plane.draw(g);
+                i++;
+            }
 		}
 
 		public void drawMarking(Graphics g)
@@ -179,6 +175,11 @@ namespace Lab2
 
 			return true;
 		}
+
+        public void Sort()
+        {
+            aerodromeStages.Sort();
+        }
 
 	}
 }

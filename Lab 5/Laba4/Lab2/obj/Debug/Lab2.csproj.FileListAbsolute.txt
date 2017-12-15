@@ -60,3 +60,15 @@ E:\ТП\C#\Lab 7\Lab 5\Laba4\Lab2\obj\Debug\Lab2.FormAerodrome.resources
 E:\ТП\C#\Lab 7\Lab 5\Laba4\Lab2\obj\Debug\Lab2.FormSelectPlane.resources
 E:\ТП\C#\Lab 7\Lab 5\Laba4\Lab2\obj\Debug\Lab2.Properties.Resources.resources
 E:\ТП\C#\Lab 7\Lab 5\Laba4\Lab2\obj\Debug\Lab2.csproj.GenerateResource.Cache
+E:\ТП\C#\Lab 8\Lab 5\Laba4\Lab2\bin\Debug\Lab2.exe.config
+E:\ТП\C#\Lab 8\Lab 5\Laba4\Lab2\obj\Debug\Lab2.exe
+E:\ТП\C#\Lab 8\Lab 5\Laba4\Lab2\obj\Debug\Lab2.pdb
+E:\ТП\C#\Lab 8\Lab 5\Laba4\Lab2\bin\Debug\Lab2.exe
+E:\ТП\C#\Lab 8\Lab 5\Laba4\Lab2\bin\Debug\Lab2.pdb
+E:\ТП\C#\Lab 8\Lab 5\Laba4\Lab2\bin\Debug\NLog.dll
+E:\ТП\C#\Lab 8\Lab 5\Laba4\Lab2\bin\Debug\NLog.xml
+E:\ТП\C#\Lab 8\Lab 5\Laba4\Lab2\obj\Debug\Lab2.csprojResolveAssemblyReference.cache
+E:\ТП\C#\Lab 8\Lab 5\Laba4\Lab2\obj\Debug\Lab2.FormAerodrome.resources
+E:\ТП\C#\Lab 8\Lab 5\Laba4\Lab2\obj\Debug\Lab2.FormSelectPlane.resources
+E:\ТП\C#\Lab 8\Lab 5\Laba4\Lab2\obj\Debug\Lab2.Properties.Resources.resources
+E:\ТП\C#\Lab 8\Lab 5\Laba4\Lab2\obj\Debug\Lab2.csproj.GenerateResource.Cache
