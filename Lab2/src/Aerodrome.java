@@ -11,6 +11,8 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 import javax.print.DocFlavor.BYTE_ARRAY;
 
@@ -45,7 +47,7 @@ public class Aerodrome implements Serializable {
 			currentLevel--;
 	}
 
-	public int putPlaneInAerodrome(ITransport plane) throws AerodromeOverflowException {
+	public int putPlaneInAerodrome(ITransport plane) throws AerodromeOverflowException, AerodromeAlreadyHaveException {
 		return aerodromeStages.get(currentLevel).plus(aerodromeStages.get(currentLevel), plane);
 	}
 
@@ -55,11 +57,13 @@ public class Aerodrome implements Serializable {
 
 	public void draw(Graphics g, int width, int height) {
 		drawMarking(g);
-		for (int i = 0; i < countPlaces; i++) {
-			ITransport plane = aerodromeStages.get(currentLevel).getPlane(i);
+		int i = 0;
+		while (aerodromeStages.get(currentLevel).hasNext()) {
+			ITransport plane = aerodromeStages.get(currentLevel).next();
 			if (plane != null) {
 				plane.setPosition(5 + i / 5 * placeWidth + 5, i % 5 * placeHeight + 15);
 				plane.draw(g);
+				i++;
 			}
 		}
 
@@ -96,7 +100,7 @@ public class Aerodrome implements Serializable {
 		try {
 			ObjectInputStream obLoad = new ObjectInputStream(new BufferedInputStream(new FileInputStream(filename)));
 			try {
-				aerodromeStages = (ArrayList<ClassArray<ITransport>>)obLoad.readObject();
+				aerodromeStages = (ArrayList<ClassArray<ITransport>>) obLoad.readObject();
 			} catch (ClassNotFoundException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -105,8 +109,18 @@ public class Aerodrome implements Serializable {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 		return true;
 	}
 
+	public void sort() {
+		Collections.sort(aerodromeStages, new Comparator<ClassArray<ITransport>>() {
+
+			@Override
+			public int compare(ClassArray<ITransport> o1, ClassArray<ITransport> o2) {
+				// TODO Auto-generated method stub
+				return o1.compareTo(o2);
+			}
+		});
+	}
 }
