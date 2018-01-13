@@ -94,7 +94,6 @@ public class ClassArray<T extends ITransport>
 			return 1;
 		else {
 			for (int i = 0; i < places.size(); i++) {
-				// int[]thisKeys=places.keys().
 				if ((places.get(places.keys().nextElement()) instanceof Figther)
 						&& (other.places.get(other.places.keys().nextElement()) instanceof Figther)) {
 					return (((Figther) places.get(places.keys().nextElement()))
