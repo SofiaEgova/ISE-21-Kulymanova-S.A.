@@ -5,7 +5,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 
-public class War extends Plane implements Serializable {
+public class War extends Plane implements Serializable, Comparable<War> {
 
 	public War(int maxSpeed, int fuel, int maxHeight, int weight, Color colorWar) {
 		this.maxSpeed = maxSpeed;
@@ -97,20 +97,64 @@ public class War extends Plane implements Serializable {
 		return maxSpeed + ";" + fuel + ";" + weight + ";" + maxHeight + ";" + colorBody;
 
 	}
-	
-	private void writeObject(ObjectOutputStream s) throws IOException {
-        s.defaultWriteObject();
-        s.writeInt(colorBody.getRed());
-        s.writeInt(colorBody.getGreen());
-        s.writeInt(colorBody.getBlue());
-    }
 
-    private void readObject(ObjectInputStream s) throws IOException, ClassNotFoundException {
-        s.defaultReadObject();
-        int red = s.readInt();
-        int green = s.readInt();
-        int blue = s.readInt();
-        colorBody = new Color(red, green, blue);
-    }
+	private void writeObject(ObjectOutputStream s) throws IOException {
+		s.defaultWriteObject();
+		s.writeInt(colorBody.getRed());
+		s.writeInt(colorBody.getGreen());
+		s.writeInt(colorBody.getBlue());
+	}
+
+	private void readObject(ObjectInputStream s) throws IOException, ClassNotFoundException {
+		s.defaultReadObject();
+		int red = s.readInt();
+		int green = s.readInt();
+		int blue = s.readInt();
+		colorBody = new Color(red, green, blue);
+	}
+
+	public int compareTo(War other) {
+		// TODO Auto-generated method stub
+		if (other == null)
+			return 1;
+		if (maxSpeed != other.maxSpeed)
+			return maxSpeed + "".compareTo(other.maxSpeed + "");
+		if (maxHeight != other.maxHeight)
+			return maxHeight + "".compareTo(other.maxHeight + "");
+		if (weight != other.weight)
+			return weight + "".compareTo(other.weight + "");
+		if (colorBody != other.colorBody)
+			return colorBody.toString().compareTo(other.colorBody.toString());
+		return 0;
+	}
+
+	public boolean equals(War other) {
+		if (other == null)
+			return false;
+		if (maxSpeed != other.maxSpeed) {
+			return false;
+		}
+		if (maxHeight != other.maxHeight) {
+			return false;
+		}
+		if (weight != other.weight) {
+			return false;
+		}
+		if (colorBody != other.colorBody) {
+			return false;
+		}
+		return true;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (obj == null)
+			return false;
+		War warObj = (War) obj;
+		if (warObj == null)
+			return false;
+		else
+			return equals(warObj);
+	}
 
 }

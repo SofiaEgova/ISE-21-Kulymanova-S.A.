@@ -77,6 +77,16 @@ public class Main {
 
 		listLevels.setSelectedIndex(aerodrome.getCurrentLevel());
 
+		JButton btnSort = new JButton("Sort");
+		btnSort.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				aerodrome.sort();
+				panel.repaint();
+			}
+		});
+		btnSort.setBounds(925, 306, 89, 23);
+		frame.getContentPane().add(btnSort);
+
 	}
 
 	/**
@@ -92,7 +102,7 @@ public class Main {
 			int place = 0;
 			try {
 				place = aerodrome.putPlaneInAerodrome(plane);
-				log.log(Level.INFO,"Поставили самолет на место " + place);
+				log.log(Level.INFO, "Поставили самолет на место " + place);
 			} catch (AerodromeOverflowException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -127,7 +137,7 @@ public class Main {
 					ITransport plane = null;
 					try {
 						plane = aerodrome.getPlaneInAerodrome(Integer.parseInt(numPlace.getText()));
-						log.log(Level.INFO,"Забрали самолет с места " + numPlace.getText());
+						log.log(Level.INFO, "Забрали самолет с места " + numPlace.getText());
 					} catch (AerodromeIndexOutOfRangeException e) {
 						// TODO Auto-generated catch block
 						JOptionPane.showMessageDialog(null, "Неверный номер");
@@ -164,7 +174,7 @@ public class Main {
 			public void actionPerformed(ActionEvent arg0) {
 				aerodrome.levelDown();
 				listLevels.setSelectedIndex(aerodrome.getCurrentLevel());
-				log.log(Level.INFO,"Спустились на уровень ниже");
+				log.log(Level.INFO, "Спустились на уровень ниже");
 				panel.repaint();
 			}
 		});
@@ -176,7 +186,7 @@ public class Main {
 			public void actionPerformed(ActionEvent e) {
 				aerodrome.levelUp();
 				listLevels.setSelectedIndex(aerodrome.getCurrentLevel());
-				log.log(Level.INFO,"Поднялись на уровень выше");
+				log.log(Level.INFO, "Поднялись на уровень выше");
 				panel.repaint();
 			}
 		});
@@ -190,7 +200,7 @@ public class Main {
 				getPlane();
 			}
 		});
-		btnGetPlane.setBounds(927, 300, 89, 23);
+		btnGetPlane.setBounds(925, 267, 89, 23);
 		frame.getContentPane().add(btnGetPlane);
 
 		JMenuBar menuBar = new JMenuBar();
@@ -212,8 +222,9 @@ public class Main {
 						if (aerodrome.save(filesave.getSelectedFile().getPath()))
 							if (filesave.getSelectedFile().getPath() != null) {
 								System.out.println("Good");
-								log.log(Level.INFO,"Сохранили аэродром в файл " + filesave.getSelectedFile().getName());
-							
+								log.log(Level.INFO,
+										"Сохранили аэродром в файл " + filesave.getSelectedFile().getName());
+
 							}
 					} catch (IOException e) {
 						// TODO Auto-generated catch block
@@ -230,8 +241,8 @@ public class Main {
 					if (aerodrome.load(fileopen.getSelectedFile().getPath()))
 						if (fileopen.getSelectedFile().getPath() != null) {
 							System.out.println("Good");
-							log.log(Level.INFO,"Загрузили аэродром из файла " + fileopen.getSelectedFile().getName());
-							
+							log.log(Level.INFO, "Загрузили аэродром из файла " + fileopen.getSelectedFile().getName());
+
 						}
 				}
 				panel.repaint();
@@ -251,5 +262,4 @@ public class Main {
 			return false;
 		return true;
 	}
-
 }
